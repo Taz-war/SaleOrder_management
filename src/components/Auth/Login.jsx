@@ -13,7 +13,9 @@ const Login = () => {
     e.preventDefault();
     if (username === 'user' && password === 'password') {
       login();
-      navigate('/active-orders');
+      navigate('/active-orders', { replace: true });
+    } else {
+      alert('Invalid credentials');
     }
   };
 
