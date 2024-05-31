@@ -4,16 +4,19 @@ import { useDisclosure } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import OrderModal from './OrderModal';
 import useAuth from '../../hooks/useAuth';
+import { dummyData, dummyActiveOrderData } from '../../data/data'
 
-const dummyData = [
-  { id: 1, customer: 'John Doe', date: '2024-05-01', amount: '$100', status: 'Active' },
-  { id: 2, customer: 'Jane Smith', date: '2024-05-02', amount: '$200', status: 'Active' },
-];
+// const dummyData = [
+//   { id: 1, customer: 'John Doe', date: '2024-05-01', amount: '$100', status: 'Active' },
+//   { id: 2, customer: 'Jane Smith', date: '2024-05-02', amount: '$200', status: 'Active' },
+// ];
 
 const ActiveOrders = () => {
   useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentOrder, setCurrentOrder] = useState(null);
+
+  console.log(dummyActiveOrderData[0].items[0].price)
 
   const handleEdit = (order) => {
     setCurrentOrder(order);
@@ -37,12 +40,12 @@ const ActiveOrders = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {dummyData.map((order) => (
-            <Tr key={order.id}>
-              <Td>{order.id}</Td>
-              <Td>{order.customer}</Td>
-              <Td>{order.date}</Td>
-              <Td>{order.amount}</Td>
+          {dummyActiveOrderData.filter(entry => entry.status).map((order) => (
+            <Tr key={order.customer_id}>
+              <Td>{order.customer_id}</Td>
+              <Td>{order.customer_name}</Td>
+              <Td>{order.invoice_date}</Td>
+              <Td>{order.items[0].price}</Td>
               <Td>
                 <IconButton
                   icon={<EditIcon />}

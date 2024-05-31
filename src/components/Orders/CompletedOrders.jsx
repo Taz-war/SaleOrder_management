@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Heading, Table, Tbody, Td, Th, Thead, Tr, IconButton } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import useAuth from '../../hooks/useAuth';
+import {  dummyActiveOrderData } from '../../data/data'
 
 const dummyData = [
   { id: 1, customer: 'John Doe', date: '2024-05-01', amount: '$100', status: 'Completed' },
@@ -25,12 +26,12 @@ const CompletedOrders = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {dummyData.map((order) => (
-            <Tr key={order.id}>
-              <Td>{order.id}</Td>
-              <Td>{order.customer}</Td>
-              <Td>{order.date}</Td>
-              <Td>{order.amount}</Td>
+          {dummyActiveOrderData.filter(entry => !entry.status).map((order) => (
+            <Tr key={order.customer_id}>
+              <Td>{order.customer_id}</Td>
+              <Td>{order.customer_name}</Td>
+              <Td>{order.invoice_date}</Td>
+              <Td>{order.items[0].price}</Td>
               <Td>
                 <IconButton icon={<EditIcon />} isDisabled />
               </Td>
