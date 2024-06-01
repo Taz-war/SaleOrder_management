@@ -1,16 +1,19 @@
-import React from 'react';
-import { Box, Heading, Table, Tbody, Td, Th, Thead, Tr, IconButton } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Heading, Table, Tbody, Td, Th, Thead, Tr, IconButton, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, useDisclosure } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import useAuth from '../../hooks/useAuth';
-import {  dummyActiveOrderData } from '../../data/data'
-
-const dummyData = [
-  { id: 1, customer: 'John Doe', date: '2024-05-01', amount: '$100', status: 'Completed' },
-  { id: 2, customer: 'Jane Smith', date: '2024-05-02', amount: '$200', status: 'Completed' },
-];
+import { dummyActiveOrderData } from '../../data/data';
+import OrderForm from './OrderForm';
 
 const CompletedOrders = () => {
   useAuth();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const handleViewOrder = (order) => {
+    setSelectedOrder(order);
+    onOpen();
+  };
 
   return (
     <Box>
@@ -33,12 +36,25 @@ const CompletedOrders = () => {
               <Td>{order.invoice_date}</Td>
               <Td>{order.items[0].price}</Td>
               <Td>
-                <IconButton icon={<EditIcon />} isDisabled />
+                <IconButton icon={<EditIcon />} onClick={() => handleViewOrder(order)} />
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>View Order</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {selectedOrder && (
+              <OrderForm order={selectedOrder} readOnly={true} onClose={onClose} />
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

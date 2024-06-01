@@ -32,6 +32,116 @@ export const products = [
 
 export const customers = [
   {
+    "id": 10,
+    "customer": 11909,
+    "customer_profile": {
+      "id": 11909,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "pincode": "400001",
+      "location_name": "Mumbai, Maharashtra, India"
+    }
+  },
+  {
+    "id": 11,
+    "customer": 11910,
+    "customer_profile": {
+      "id": 11910,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "pincode": "110001",
+      "location_name": "New Delhi, Delhi, India"
+    }
+  },
+  {
+    "id": 12,
+    "customer": 11911,
+    "customer_profile": {
+      "id": 11911,
+      "name": "Michael Johnson",
+      "email": "michael.johnson@example.com",
+      "pincode": "600001",
+      "location_name": "Chennai, Tamil Nadu, India"
+    }
+  },
+  {
+    "id": 13,
+    "customer": 11912,
+    "customer_profile": {
+      "id": 11912,
+      "name": "Emily Davis",
+      "email": "emily.davis@example.com",
+      "pincode": "700001",
+      "location_name": "Kolkata, West Bengal, India"
+    }
+  },
+  {
+    "id": 14,
+    "customer": 11913,
+    "customer_profile": {
+      "id": 11913,
+      "name": "David Wilson",
+      "email": "david.wilson@example.com",
+      "pincode": "500001",
+      "location_name": "Hyderabad, Telangana, India"
+    }
+  },
+  {
+    "id": 15,
+    "customer": 11914,
+    "customer_profile": {
+      "id": 11914,
+      "name": "Sarah Brown",
+      "email": "sarah.brown@example.com",
+      "pincode": "560001",
+      "location_name": "Bangalore, Karnataka, India"
+    }
+  },
+  {
+    "id": 16,
+    "customer": 11915,
+    "customer_profile": {
+      "id": 11915,
+      "name": "Chris Jones",
+      "email": "chris.jones@example.com",
+      "pincode": "380001",
+      "location_name": "Ahmedabad, Gujarat, India"
+    }
+  },
+  {
+    "id": 17,
+    "customer": 11916,
+    "customer_profile": {
+      "id": 11916,
+      "name": "Jessica Lee",
+      "email": "jessica.lee@example.com",
+      "pincode": "302001",
+      "location_name": "Jaipur, Rajasthan, India"
+    }
+  },
+  {
+    "id": 18,
+    "customer": 11917,
+    "customer_profile": {
+      "id": 11917,
+      "name": "Daniel White",
+      "email": "daniel.white@example.com",
+      "pincode": "144001",
+      "location_name": "Jalandhar, Punjab, India"
+    }
+  },
+  {
+    "id": 19,
+    "customer": 11918,
+    "customer_profile": {
+      "id": 11918,
+      "name": "Laura Green",
+      "email": "laura.green@example.com",
+      "pincode": "248001",
+      "location_name": "Dehradun, Uttarakhand, India"
+    }
+  },
+  {
     id: 9,
     customer: 11908,
     customer_profile: {
@@ -41,8 +151,7 @@ export const customers = [
       pincode: 'Mumbai',
       location_name: 'Mumbai, Maharashtra, India',
     },
-  },
-  // Add more customers as needed
+  }
 ];
 
 ///dummy active users data///
