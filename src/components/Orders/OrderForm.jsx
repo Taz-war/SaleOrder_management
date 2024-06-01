@@ -195,9 +195,14 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
       )}
 
       {!readOnly && (
+        <Box display={'flex'} justifyContent={'space-between'}>
         <Button type="submit" colorScheme="teal" isDisabled={!selectedSKU}>
           Submit
         </Button>
+          <Button colorScheme="red" onClick={onClose}>
+            Close
+          </Button>
+        </Box>
       )}
     </Box>
   );
