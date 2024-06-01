@@ -3,6 +3,7 @@ import { Box, Flex, Button, Heading, Spacer } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
@@ -13,17 +14,8 @@ const Navbar = () => {
       <Spacer />
       {isAuthenticated && (
         <>
-          <Link to="/active-orders">
-            <Button colorScheme="teal" variant="outline" mr={4}>
-              Active Orders
-            </Button>
-          </Link>
-          <Link to="/completed-orders">
-            <Button colorScheme="teal" variant="outline" mr={4}>
-              Completed Orders
-            </Button>
-          </Link>
-          <Button colorScheme="teal" variant="outline" onClick={logout}>
+          <ThemeToggle />
+          <Button colorScheme="teal" variant="outline" color={'white'} onClick={logout}>
             Logout
           </Button>
         </>

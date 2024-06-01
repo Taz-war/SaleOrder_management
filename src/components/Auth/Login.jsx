@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Input, FormControl, FormLabel, Heading } from '@chakra-ui/react';
+import { Box, Button, Input, FormControl, FormLabel, Heading, Card, CardHeader, CardBody } from '@chakra-ui/react';
 import { AuthContext } from '../../context/AuthContext';
+import ThemeToggle from '../ThemeToggle';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -20,8 +21,12 @@ const Login = () => {
   };
 
   return (
-    <Box maxW="md" mx="auto" mt={10}>
-      <Heading mb={6}>Login</Heading>
+    <Card maxW="lg" mx="auto" mt={10}>
+      <CardHeader>
+        <ThemeToggle />
+        <Heading size='lg' textAlign={'center'}>Login</Heading>
+      </CardHeader>
+      <CardBody>
       <form onSubmit={handleSubmit}>
         <FormControl mb={4}>
           <FormLabel>Username</FormLabel>
@@ -43,7 +48,8 @@ const Login = () => {
           Login
         </Button>
       </form>
-    </Box>
+      </CardBody>
+    </Card>
   );
 };
 

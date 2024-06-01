@@ -26,6 +26,7 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
   const [selectedSKU, setSelectedSKU] = useState(null);
   const watchItems = watch('items') || [];
   const watchCustomerID = watch('customer_id');
+  const watchCustomerName = watch('customer_name');
   const watchInvoiceDate = watch('invoice_date');
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
       const customer = customers.find(c => c.customer_profile.id === order.customer_id);
       if (customer) {
         setValue('customer_id', customer.customer_profile.id);
-        setValue('customer_name', customer.customer_profile.id); // Set the customer_profile.id as the value for the select component
+        setValue('customer_name', customer.customer_profile.name);
       }
 
       const product = products.find(p => p.sku.some(sku => sku.id === order.items[0].sku_id));
@@ -52,7 +53,7 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
     setSelectedSKU(null); // Reset selected SKU when product changes
     reset({
       customer_id: watchCustomerID,
-      customer_name: '',
+      customer_name: watchCustomerName,
       items: [{ sku_id: '', price: '', quantity: '' }],
       invoice_no: '',
       invoice_date: watchInvoiceDate,
@@ -75,6 +76,9 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
   };
 
   const onSubmit = (data) => {
+    const invoiceDate = new Date(data.invoice_date);
+    const existingOrderIndex = dummyActiveOrderData.findIndex(o => o.customer_id === data.customer_id);
+
     const payload = {
       customer_id: data.customer_id,
       customer_name: data.customer_name,
@@ -86,11 +90,16 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
       }],
       paid: data.status,
       invoice_no: data.invoice_no,
-      invoice_date: data.invoice_date.toLocaleDateString('en-GB'),
+      invoice_date: invoiceDate.toLocaleDateString('en-GB'),
     };
 
+    if (existingOrderIndex >= 0) {
+      dummyActiveOrderData[existingOrderIndex] = payload; // Update existing order
+    } else {
+      dummyActiveOrderData.push(payload); // Add new order
+    }
+
     console.log(payload);
-    dummyActiveOrderData.push(payload); // Push the payload to dummyActiveOrderData
     onClose();
   };
 
@@ -98,7 +107,7 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
     <Box as="form" onSubmit={handleSubmit(onSubmit)}>
       <FormControl mb={4}>
         <FormLabel>Customer Name</FormLabel>
-        <Select onChange={handleCustomerChange} value={watch('customer_id')} isReadOnly={readOnly}>
+        <Select onChange={handleCustomerChange} value={watchCustomerID} isReadOnly={readOnly}>
           <option value="">Select Customer</option>
           {customers.map(customer => (
             <option key={customer.id} value={customer.customer_profile.id}>
@@ -172,7 +181,7 @@ const OrderForm = ({ onClose, order, readOnly = false }) => {
       <FormControl mb={4}>
         <FormLabel>Invoice Date</FormLabel>
         <DatePicker
-          selected={watchInvoiceDate}
+          selected={watchInvoiceDate instanceof Date ? watchInvoiceDate : new Date(watchInvoiceDate)}
           onChange={(date) => setValue('invoice_date', date)}
           readOnly={readOnly}
         />

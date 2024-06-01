@@ -29,7 +29,7 @@ const CompletedOrders = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {dummyActiveOrderData.filter(entry => !entry.status).map((order) => (
+          {dummyActiveOrderData.filter(entry => entry.status).map((order) => (
             <Tr key={order.customer_id}>
               <Td>{order.customer_id}</Td>
               <Td>{order.customer_name}</Td>
